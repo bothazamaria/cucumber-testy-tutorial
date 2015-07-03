@@ -7,50 +7,50 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.fasttrackit.util.TestBaseNative;
 import org.fasttrackit.workshop.pagefactory.login.LoginPage;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class LoginSteps extends TestBaseNative {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginSteps.class);
 
     LoginPage loginPage;
 
-    @Given("^I open login page$")
-    public void I_open_login_page() {
-        driver.get("file:///D:/Testy/src/test/functional/login.html");
-
-        //loginPage = PageFactory.initElements(driver, LoginPage.class);
-    }
-
-    @When("^I enter email \"([^\"]*)\"$")
-    public void I_enter_email(String email) {
-        WebElement element = driver.findElement(By.id("email"));
-        element.sendKeys(email);
-    }
-
     @Given("^I access the login page.$")
     public void I_access_the_login_page() throws Throwable {
-        System.out.printf("accesez pagina");
+        driver.get("https://dl.dropboxusercontent.com/u/16174618/FastTrackIT/app-demo/login.html");
     }
 
     @And("^I insert valid credentials.$")
     public void I_insert_valid_credentials() throws Throwable {
-        // Express the Regexp above with the code you wish you had
-        throw new PendingException();
+        WebElement email = driver.findElement(By.id("email"));
+        email.sendKeys("eu@fast.com");
+        WebElement password = driver.findElement(By.id("password"));
+        password.sendKeys("eu.pass");
     }
 
     @When("^I click on login button.$")
     public void I_click_on_login_button() throws Throwable {
-        // Express the Regexp above with the code you wish you had
-        throw new PendingException();
+        WebElement loginButton = driver.findElement(By.id("loginButton"));
+        loginButton.click();
     }
 
     @Then("^I check if the user was logged in.$")
     public void I_check_if_the_user_was_logged_in() throws Throwable {
-        // Express the Regexp above with the code you wish you had
-        throw new PendingException();
+        boolean successfullLogin = false;
+        try {
+
+            WebElement logoutButton = driver.findElement(By.xpath("//a[.='Logout']"));
+            successfullLogin = logoutButton.isDisplayed();
+        } catch (Exception e) {
+        }
+        assertThat("Logout button was not found!", successfullLogin, is(true));
     }
 
     @And("^I insert invalid credentials.$")
