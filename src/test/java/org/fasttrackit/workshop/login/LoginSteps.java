@@ -7,6 +7,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.fasttrackit.util.TestBaseNative;
 import org.fasttrackit.workshop.pagefactory.login.LoginPage;
+import org.jcp.xml.dsig.internal.dom.Utils;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -27,7 +28,7 @@ public class LoginSteps extends TestBaseNative {
         driver.get("https://dl.dropboxusercontent.com/u/16174618/FastTrackIT/app-demo/login.html");
     }
 
-    @And("^I insert valid credentials.$")
+    @Given("^I insert valid credentials.$")
     public void I_insert_valid_credentials() throws Throwable {
         WebElement email = driver.findElement(By.id("email"));
         email.sendKeys("eu@fast.com");
@@ -53,25 +54,20 @@ public class LoginSteps extends TestBaseNative {
         assertThat("Logout button was not found!", successfullLogin, is(true));
     }
 
-    @And("^I insert invalid credentials.$")
+    @Given("^I insert invalid credentials.$")
     public void I_insert_invalid_credentials() throws Throwable {
-        // Express the Regexp above with the code you wish you had
-        throw new PendingException();
+        WebElement email = driver.findElement(By.id("email"));
+        email.sendKeys("euuu@fast.com");
+        WebElement password = driver.findElement(By.id("password"));
+        password.sendKeys("eu.paaaass");
+
     }
 
     @Then("^I expect invalid credentials message.$")
     public void I_expect_invalid_credentials_message() throws Throwable {
-        // Express the Regexp above with the code you wish you had
-        throw new PendingException();
+        WebElement errorMessage = driver.findElement(By.className("error-msg"));
+        assertThat(errorMessage.getText(), is("Invalid user or password!"));
+
     }
 
-    @Given("^I open this url \"([^\"]*)\"$")
-    public void I_open_this_url(String url) throws Throwable {
-        driver.get(url);
-    }
-
-    @Then("^I send (\\d+) into search field$")
-    public void I_send_into_search_field(int arg1) throws Throwable {
-        System.out.println("numarul meu este:" + arg1);
-    }
 }
