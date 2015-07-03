@@ -29,11 +29,8 @@ public class LoginSteps extends TestBaseNative {
     }
 
     @Given("^I insert valid credentials.$")
-    public void I_insert_valid_credentials() throws Throwable {
-        WebElement email = driver.findElement(By.id("email"));
-        email.sendKeys("eu@fast.com");
-        WebElement password = driver.findElement(By.id("password"));
-        password.sendKeys("eu.pass");
+    public void I_insert_valid_credentials() {
+        I_enter_credentials("eu@fast.com", "eu.pass");
     }
 
     @When("^I click on login button.$")
@@ -55,19 +52,32 @@ public class LoginSteps extends TestBaseNative {
     }
 
     @Given("^I insert invalid credentials.$")
-    public void I_insert_invalid_credentials() throws Throwable {
-        WebElement email = driver.findElement(By.id("email"));
-        email.sendKeys("euuu@fast.com");
-        WebElement password = driver.findElement(By.id("password"));
-        password.sendKeys("eu.paaaass");
+    public void I_insert_invalid_credentials() {
+        I_enter_credentials("euuu@fast.com", "eu.paaaass");
 
     }
 
     @Then("^I expect invalid credentials message.$")
     public void I_expect_invalid_credentials_message() throws Throwable {
-        WebElement errorMessage = driver.findElement(By.className("error-msg"));
-        assertThat(errorMessage.getText(), is("Invalid user or password!"));
+        errorMessageShouldBePresent("Invalid user or password!");
 
     }
 
+    private void errorMessageShouldBePresent(String expectedMessage) {
+        WebElement errorMessage = driver.findElement(By.className("error-msg"));
+        assertThat(errorMessage.getText(), is(expectedMessage));
+    }
+
+    @When("^I enter \"([^\"]*)\"/\"([^\"]*)\" credentials.$")
+    public void I_enter_credentials(String emailValue, String passwordValue) {
+        WebElement email = driver.findElement(By.id("email"));
+        email.sendKeys(emailValue);
+        WebElement password = driver.findElement(By.id("password"));
+        password.sendKeys(passwordValue);
+    }
+
+    @Then("^I expect \"([^\"]*)\" error message.$")
+    public void I_expect_error_message(String expectedMessage) {
+        errorMessageShouldBePresent(expectedMessage);
+    }
 }
