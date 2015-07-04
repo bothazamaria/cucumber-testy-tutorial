@@ -3,29 +3,18 @@ package org.fasttrackit.workshop.login;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.fasttrackit.util.TestBase;
 import org.fasttrackit.util.TestBaseNative;
-import org.fasttrackit.workshop.pagefactory.login.LoginPage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class LoginSteps extends TestBaseNative {
+public class LoginSteps extends TestBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginSteps.class);
 
-    LoginPage loginPage;
-
-    public LoginSteps() {
-        initPage();
-    }
-
-    public void initPage() {
-        loginPage = PageFactory.initElements(driver, LoginPage.class);
-    }
+    private LoginView loginPage = new LoginView();
 
     @Given("^I access the login page.$")
     public void I_access_the_login_page() {
@@ -39,7 +28,7 @@ public class LoginSteps extends TestBaseNative {
 
     @When("^I click on login button.$")
     public void I_click_on_login_button() {
-        loginPage.ClickLoginButton();
+        loginPage.clickLoginButton();
     }
 
     @Then("^I check if the user was logged in.$")
