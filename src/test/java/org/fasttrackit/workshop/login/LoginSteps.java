@@ -6,7 +6,6 @@ import cucumber.api.java.en.When;
 import org.fasttrackit.util.TestBaseNative;
 import org.fasttrackit.workshop.pagefactory.login.LoginPage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
@@ -47,8 +46,7 @@ public class LoginSteps extends TestBaseNative {
     public void I_check_if_the_user_was_logged_in() {
         boolean successfullLogin = false;
         try {
-            WebElement logoutButton = driver.findElement(By.xpath("//a[.='Logout']"));
-            successfullLogin = logoutButton.isDisplayed();
+            successfullLogin = loginPage.checkLogoutButtonIsDisplayed();
         } catch (Exception e) {
         }
         assertThat("Logout button was not found!", successfullLogin, is(true));

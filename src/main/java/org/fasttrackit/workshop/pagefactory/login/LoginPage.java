@@ -19,6 +19,8 @@ public class LoginPage {
     private WebElement password;
     @FindBy(id = "error-msg")
     private WebElement errorMessage;
+    @FindBy(xpath = "//a[.='Logout']")
+    private WebElement logoutButton;
 
     public void ClickLoginButton() {
         loginButton.click();
@@ -31,5 +33,9 @@ public class LoginPage {
 
     public String getErrorMessage() {
         return errorMessage.getText();
+    }
+
+    public boolean checkLogoutButtonIsDisplayed() {
+        return logoutButton.isDisplayed();
     }
 }
