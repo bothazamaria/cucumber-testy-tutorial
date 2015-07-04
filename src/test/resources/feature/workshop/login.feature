@@ -1,3 +1,4 @@
+@screen
 Feature: Login
 
   Scenario: Login successfully
@@ -42,7 +43,6 @@ Feature: Login
       |             |          | Please enter your email!    |
       | aa@fast.com | aaa.pas  | Invalid user or password!   |
 
-  Scenario : Logout success
+  Scenario: Logout success
     Given I successfully login.
-    When I click on some elements.
 

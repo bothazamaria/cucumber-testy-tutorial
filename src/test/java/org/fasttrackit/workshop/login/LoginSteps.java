@@ -1,27 +1,23 @@
 package org.fasttrackit.workshop.login;
 
-import cucumber.api.PendingException;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.fasttrackit.util.TestBaseNative;
 import org.fasttrackit.workshop.pagefactory.login.LoginPage;
-import org.jcp.xml.dsig.internal.dom.Utils;
-import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 public class LoginSteps extends TestBaseNative {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginSteps.class);
 
-    LoginPage loginPage;
+    LoginPage loginPage = new LoginPage();
 
     @Given("^I access the login page.$")
     public void I_access_the_login_page() {
@@ -35,8 +31,7 @@ public class LoginSteps extends TestBaseNative {
 
     @When("^I click on login button.$")
     public void I_click_on_login_button() {
-        WebElement loginButton = driver.findElement(By.id("loginButton"));
-        loginButton.click();
+        loginPage.ClickLoginButton(driver);
     }
 
     @Then("^I check if the user was logged in.$")

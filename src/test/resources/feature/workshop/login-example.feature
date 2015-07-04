@@ -1,4 +1,4 @@
-@screen
+C
 Feature: As a valid user a can login into application
 
   Scenario: I successfully login with valid user and pass
