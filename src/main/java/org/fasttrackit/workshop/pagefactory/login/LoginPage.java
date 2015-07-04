@@ -17,7 +17,7 @@ public class LoginPage {
     private WebElement email;
     @FindBy(id = "password")
     private WebElement password;
-    @FindBy(id = "error-msg")
+    @FindBy(xpath = "//div[@class = 'error-msg error']")
     private WebElement errorMessage;
     @FindBy(xpath = "//a[.='Logout']")
     private WebElement logoutButton;
