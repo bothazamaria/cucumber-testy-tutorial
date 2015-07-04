@@ -47,7 +47,6 @@ public class LoginSteps extends TestBaseNative {
     public void I_check_if_the_user_was_logged_in() {
         boolean successfullLogin = false;
         try {
-
             WebElement logoutButton = driver.findElement(By.xpath("//a[.='Logout']"));
             successfullLogin = logoutButton.isDisplayed();
         } catch (Exception e) {
@@ -68,16 +67,13 @@ public class LoginSteps extends TestBaseNative {
     }
 
     private void errorMessageShouldBePresent(String expectedMessage) {
-        WebElement errorMessage = driver.findElement(By.className("error-msg"));
-        assertThat(errorMessage.getText(), is(expectedMessage));
+        String errorMessage = loginPage.getErrorMessage();
+        assertThat(errorMessage, is(expectedMessage));
     }
 
     @When("^I enter \"([^\"]*)\"/\"([^\"]*)\" credentials.$")
     public void I_enter_credentials(String emailValue, String passwordValue) {
-        WebElement email = driver.findElement(By.id("email"));
-        email.sendKeys(emailValue);
-        WebElement password = driver.findElement(By.id("password"));
-        password.sendKeys(passwordValue);
+        loginPage.insertCredentials(emailValue, passwordValue);
     }
 
     @Then("^I expect \"([^\"]*)\" error message.$")

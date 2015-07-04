@@ -13,8 +13,23 @@ public class LoginPage {
 
     @FindBy(id = "loginButton")
     private WebElement loginButton;
+    @FindBy(id = "email")
+    private WebElement email;
+    @FindBy(id = "password")
+    private WebElement password;
+    @FindBy(id = "error-msg")
+    private WebElement errorMessage;
 
     public void ClickLoginButton() {
         loginButton.click();
+    }
+
+    public void insertCredentials(String emailValue, String passwordValue) {
+        email.sendKeys(emailValue);
+        password.sendKeys(passwordValue);
+    }
+
+    public String getErrorMessage() {
+        return errorMessage.getText();
     }
 }
